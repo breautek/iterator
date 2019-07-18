@@ -1,8 +1,9 @@
 {
   "name": "@breautek/iterator",
-  "version": "0.19.2",
+  "version": "1.0.0",
   "description": "Iterator implementation",
-  "main": "lib/api.js",
+  "main": "lib/Iterator.js",
+  "types": "lib/Iterator.d.ts",
   "nyc": {
     "check-coverage": true,
     "per-file": true,
