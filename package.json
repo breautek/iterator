@@ -1,6 +1,6 @@
 {
   "name": "@breautek/iterator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Iterator implementation",
   "main": "lib/Iterator.js",
   "types": "lib/Iterator.d.ts",
@@ -14,13 +14,12 @@
   },
   "scripts": {
     "build": "npm run-script lint && tsc",
-    "build-lib": "rm -r ./lib && tsc",
     "lint": "eslint --ext .ts './src/**/*.ts'",
     "unit": "jasmine-ts",
     "test": "npm run-script lint && nyc --reporter=lcov --reporter=text jasmine-ts",
     "coverage": "codecov",
     "clean": "rm -r ./lib && rm -r ./docs",
-    "prepublishOnly": "npm run-script build-lib"
+    "prepublishOnly": "npm run-script build"
   },
   "repository": {
     "type": "git",

@@ -79,3 +79,5 @@ export class Iterator<T> {
         return this.cursor--;
     }
 }
+
+export default Iterator;
