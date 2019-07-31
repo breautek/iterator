@@ -1,9 +1,9 @@
 {
   "name": "@breautek/iterator",
-  "version": "1.0.2",
+  "version": "1.1.0-dev",
   "description": "Iterator implementation",
-  "main": "lib/Iterator.js",
-  "types": "lib/Iterator.d.ts",
+  "main": "lib/api.js",
+  "types": "lib/api.d.ts",
   "nyc": {
     "check-coverage": true,
     "per-file": true,
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "npm run-script lint && tsc",
-    "lint": "eslint --ext .ts './src/**/*.ts'",
+    "lint": "eslint --ext .ts './src/**/*.ts' && eslint --ext .ts './spec/**/*.ts'",
     "unit": "jasmine-ts",
     "test": "npm run-script lint && nyc --reporter=lcov --reporter=text jasmine-ts",
     "coverage": "codecov",

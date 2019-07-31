@@ -1,118 +1,221 @@
-/*
-MIT License
-
-Copyright (c) 2019 Norman Breau
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
 
 import {Iterator} from '../src/Iterator';
+import {ReverseIterator} from '../src/ReverseIterator';
 
 describe('Iterator', () => {
     var iterator: Iterator<number>;
+    var reverse: ReverseIterator<number>;
 
     beforeEach(() => {
-        iterator = new Iterator<number>([1,2,3]);
+        const data: Array<number> = [
+            1,
+            2,
+            3
+        ];
+
+        iterator = new Iterator<number>(data);
+        reverse = new ReverseIterator<number>(data);
     });
 
-    it('Constructs with custom index position', () => {
-        var iter: Iterator<number> = new Iterator<number>([1,2,3], 0);
-        expect(iter.hasPrevious()).toBe(true);
-        expect(iter.next()).toBe(2);
-        expect(iter.next()).toBe(3);
+    describe('Constructs with custom index position', () => {
+        it('Iterator', () => {
+            var iter: Iterator<number> = new Iterator<number>([
+                1,
+                2,
+                3
+            ], 0);
+            expect(iter.hasPrevious()).toBe(true);
+            expect(iter.next()).toBe(2);
+            expect(iter.next()).toBe(3);
+        });
+
+        it('ReverseIterator', () => {
+            var iter: ReverseIterator<number> = new ReverseIterator<number>([
+                1,
+                2,
+                3
+            ], 2);
+            expect(iter.hasPrevious()).toBe(true);
+            expect(iter.next()).toBe(3);
+            expect(iter.next()).toBe(2);
+        });
     });
 
-    it('hasNext()', () => {
-        expect(iterator.hasNext()).toBe(true);
-        iterator.next();
-        iterator.next();
-        iterator.next();
-        expect(iterator.hasNext()).toBe(false);
+    describe('hasNext()', () => {
+        it('Iterator', () => {
+            expect(iterator.hasNext()).toBe(true);
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            expect(iterator.hasNext()).toBe(false);
+        });
+
+        it('ReverseIterator', () => {
+            expect(reverse.hasNext()).toBe(true);
+            reverse.next();
+            reverse.next();
+            reverse.next();
+            expect(reverse.hasNext()).toBe(false);
+        });
     });
 
-    it('next()', () => {
-        expect(iterator.next()).toBe(1);
-        expect(iterator.next()).toBe(2);
-        expect(iterator.next()).toBe(3);
+    describe('next()', () => {
+        it('Iterator', () => {
+            expect(iterator.next()).toBe(1);
+            expect(iterator.next()).toBe(2);
+            expect(iterator.next()).toBe(3);
+        });
+
+        it('ReverseIterator', () => {
+            expect(reverse.next()).toBe(3);
+            expect(reverse.next()).toBe(2);
+            expect(reverse.next()).toBe(1);
+        });
     });
 
-    it('hasPrevious()', () => {
-        expect(iterator.hasPrevious()).toBe(false);
-        iterator.next();
-        expect(iterator.hasPrevious()).toBe(true);
+    describe('hasPrevious()', () => {
+        it('Iterator', () => {
+            expect(iterator.hasPrevious()).toBe(false);
+            iterator.next();
+            expect(iterator.hasPrevious()).toBe(true);
+        });
+
+        it('ReverseIterator', () => {
+            expect(reverse.hasPrevious()).toBe(false);
+            reverse.next();
+            expect(reverse.hasPrevious()).toBe(true);
+        });
     });
 
-    it('previous()', () => {
-        iterator.next();
-        iterator.next();
-        iterator.next();
-        expect(iterator.previous()).toBe(3);
-        expect(iterator.previous()).toBe(2);
-        expect(iterator.previous()).toBe(1);
+    describe('previous()', () => {
+        it('Iterator', () => {
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            expect(iterator.previous()).toBe(3);
+            expect(iterator.previous()).toBe(2);
+            expect(iterator.previous()).toBe(1);
+        });
+        
+        it('ReverseIterator', () => {
+            reverse.next();
+            reverse.next();
+            reverse.next();
+            expect(reverse.previous()).toBe(1);
+            expect(reverse.previous()).toBe(2);
+            expect(reverse.previous()).toBe(3);
+        });
     });
 
-    it('reset()', () => {
-        iterator.next();
-        iterator.next();
-        iterator.reset();
-        expect(iterator.next()).toBe(1);
+    describe('reset()', () => {
+        it('Iterator', () => {
+            iterator.next();
+            iterator.next();
+            iterator.reset();
+            expect(iterator.next()).toBe(1);
+        });
+
+        it('ReverseIterator', () => {
+            reverse.next();
+            reverse.next();
+            reverse.reset();
+            expect(reverse.next()).toBe(3);
+        });
     });
 
-    it('bringToStart()', () => {
-        iterator.next();
-        iterator.next();
-        iterator.reset();
-        expect(iterator.next()).toBe(1);
+    describe('bringToStart()', () => {
+        it('Iterator', () => {
+            iterator.next();
+            iterator.next();
+            iterator.reset();
+            expect(iterator.next()).toBe(1);
+        });
+
+        it('ReverseIterator', () => {
+            reverse.next();
+            reverse.next();
+            reverse.reset();
+            expect(reverse.next()).toBe(3);
+        });
     });
 
-    it('bringToEnd()', () => {
-        iterator.bringToEnd();
-        expect(iterator.previous()).toBe(3);
+    describe('bringToEnd()', () => {
+        it('Iterator', () => {
+            iterator.bringToEnd();
+            expect(iterator.previous()).toBe(3);
+        });
+
+        it('ReverseIterator', () => {
+            reverse.bringToEnd();
+            expect(reverse.previous()).toBe(1);
+        });
     });
 
-    it('peekNextIndex()', () => {
-        expect(iterator.peekNextIndex()).toBe(0);
-        expect(iterator.next()).toBe(1);
-        expect(iterator.peekNextIndex()).toBe(1);
-        expect(iterator.next()).toBe(2);
-        expect(iterator.peekNextIndex()).toBe(2);
-        expect(iterator.next()).toBe(3);
+    describe('peekNextIndex()', () => {
+        it('Iterator', () => {
+            expect(iterator.peekNextIndex()).toBe(0);
+            expect(iterator.next()).toBe(1);
+            expect(iterator.peekNextIndex()).toBe(1);
+            expect(iterator.next()).toBe(2);
+            expect(iterator.peekNextIndex()).toBe(2);
+            expect(iterator.next()).toBe(3);
+        });
+
+        it('ReverseIterator', () => {
+            expect(reverse.peekNextIndex()).toBe(2);
+            expect(reverse.next()).toBe(3);
+            expect(reverse.peekNextIndex()).toBe(1);
+            expect(reverse.next()).toBe(2);
+            expect(reverse.peekNextIndex()).toBe(0);
+            expect(reverse.next()).toBe(1);
+        });
     });
 
-    it('peekNextIndex()', () => {
-        iterator.bringToEnd();
-        expect(iterator.peekPreviousIndex()).toBe(2);
-        expect(iterator.previous()).toBe(3);
-        expect(iterator.peekPreviousIndex()).toBe(1);
-        expect(iterator.previous()).toBe(2);
-        expect(iterator.peekPreviousIndex()).toBe(0);
-        expect(iterator.previous()).toBe(1);
+    describe('peekNextIndex()', () => {
+        it('Iterator', () => {
+            iterator.bringToEnd();
+            expect(iterator.peekPreviousIndex()).toBe(2);
+            expect(iterator.previous()).toBe(3);
+            expect(iterator.peekPreviousIndex()).toBe(1);
+            expect(iterator.previous()).toBe(2);
+            expect(iterator.peekPreviousIndex()).toBe(0);
+            expect(iterator.previous()).toBe(1);
+        });
+
+        it('ReverseIterator', () => {
+            reverse.bringToEnd();
+            expect(reverse.peekPreviousIndex()).toBe(0);
+            expect(reverse.previous()).toBe(1);
+            expect(reverse.peekPreviousIndex()).toBe(1);
+            expect(reverse.previous()).toBe(2);
+            expect(reverse.peekPreviousIndex()).toBe(2);
+            expect(reverse.previous()).toBe(3);
+        });
     });
 
-    it('incrementIndex()', () => {
-        iterator.incrementIndex();
-        expect(iterator.next()).toBe(2);
+    describe('incrementIndex()', () => {
+        it('Iterator', () => {
+            iterator.incrementIndex();
+            expect(iterator.next()).toBe(2);
+        });
+
+        it('ReverseIterator', () => {
+            reverse.incrementIndex();
+            expect(reverse.next()).toBe(2);
+        });
     });
 
-    it('decrementIndex()', () => {
-        iterator.bringToEnd();
-        iterator.decrementIndex();
-        expect(iterator.next()).toBe(3);
+    describe('decrementIndex()', () => {
+        it('Iterator', () => {
+            iterator.bringToEnd();
+            iterator.decrementIndex();
+            expect(iterator.next()).toBe(3);
+        });
+
+        it('ReverseIterator', () => {
+            reverse.bringToEnd();
+            reverse.decrementIndex();
+            expect(reverse.next()).toBe(1);
+        });
     });
 });
