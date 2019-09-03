@@ -1,27 +1,31 @@
 
 export class Iterator<T> {
-    private collection: Array<T>;
-    private cursor: number;
+    private _collection: Array<T>;
+    private _cursor: number;
 
-    constructor(collection: Array<T> = [], index: number = -1) {
-        this.collection = collection;
-        this.cursor = index;
+    constructor(collection: Array<T> = [], index: number = 0) {
+        this._collection = collection;
+        this._cursor = index;
     }
 
     public hasNext(): boolean {
-        return !!this.collection[this.peekNextIndex()];
+        return !!this._collection[this._getIndex()];
     }
 
     public next(): T {
-        return this.collection[this.incrementIndex()];
+        let data: T = this._collection[this._getIndex()];
+        this.incrementIndex();
+        return data;
     }
 
     public hasPrevious(): boolean {
-        return !!this.collection[this.peekPreviousIndex()];
+        return !!this._collection[this.peekPreviousIndex()];
     }
 
     public previous(): T {
-        return this.collection[this.decrementIndex()];
+        this.decrementIndex();
+        let data: T = this._collection[this._cursor];
+        return data;
     }
 
     public reset(): void {
@@ -29,27 +33,33 @@ export class Iterator<T> {
     }
 
     public bringToStart(): void {
-        this.cursor = -1;
+        this._cursor = 0;
     }
 
     public bringToEnd(): void {
-        this.cursor = this.collection.length - 1;
+        this._cursor = this._collection.length;
     }
 
     public peekNextIndex(): number {
-        return this.cursor + 1;
+        return this._cursor;
     }
 
     public peekPreviousIndex(): number {
-        return this.cursor;
+        return this._cursor - 1;
     }
 
     public incrementIndex(): number {
-        return ++this.cursor;
+        this._cursor += 1;
+        return this._cursor;
     }
 
     public decrementIndex(): number {
-        return this.cursor--;
+        this._cursor -= 1;
+        return this._cursor;
+    }
+
+    private _getIndex(): number {
+        return this._cursor;
     }
 }
 

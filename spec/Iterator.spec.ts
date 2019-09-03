@@ -1,10 +1,8 @@
 
 import {Iterator} from '../src/Iterator';
-import {ReverseIterator} from '../src/ReverseIterator';
 
 describe('Iterator', () => {
     var iterator: Iterator<number>;
-    var reverse: ReverseIterator<number>;
 
     beforeEach(() => {
         const data: Array<number> = [
@@ -14,7 +12,6 @@ describe('Iterator', () => {
         ];
 
         iterator = new Iterator<number>(data);
-        reverse = new ReverseIterator<number>(data);
     });
 
     describe('Constructs with custom index position', () => {
@@ -24,20 +21,10 @@ describe('Iterator', () => {
                 2,
                 3
             ], 0);
-            expect(iter.hasPrevious()).toBe(true);
+            expect(iter.hasPrevious()).toBe(false);
+            expect(iter.next()).toBe(1);
             expect(iter.next()).toBe(2);
             expect(iter.next()).toBe(3);
-        });
-
-        it('ReverseIterator', () => {
-            var iter: ReverseIterator<number> = new ReverseIterator<number>([
-                1,
-                2,
-                3
-            ], 2);
-            expect(iter.hasPrevious()).toBe(true);
-            expect(iter.next()).toBe(3);
-            expect(iter.next()).toBe(2);
         });
     });
 
@@ -49,14 +36,6 @@ describe('Iterator', () => {
             iterator.next();
             expect(iterator.hasNext()).toBe(false);
         });
-
-        it('ReverseIterator', () => {
-            expect(reverse.hasNext()).toBe(true);
-            reverse.next();
-            reverse.next();
-            reverse.next();
-            expect(reverse.hasNext()).toBe(false);
-        });
     });
 
     describe('next()', () => {
@@ -65,12 +44,6 @@ describe('Iterator', () => {
             expect(iterator.next()).toBe(2);
             expect(iterator.next()).toBe(3);
         });
-
-        it('ReverseIterator', () => {
-            expect(reverse.next()).toBe(3);
-            expect(reverse.next()).toBe(2);
-            expect(reverse.next()).toBe(1);
-        });
     });
 
     describe('hasPrevious()', () => {
@@ -78,12 +51,6 @@ describe('Iterator', () => {
             expect(iterator.hasPrevious()).toBe(false);
             iterator.next();
             expect(iterator.hasPrevious()).toBe(true);
-        });
-
-        it('ReverseIterator', () => {
-            expect(reverse.hasPrevious()).toBe(false);
-            reverse.next();
-            expect(reverse.hasPrevious()).toBe(true);
         });
     });
 
@@ -96,15 +63,6 @@ describe('Iterator', () => {
             expect(iterator.previous()).toBe(2);
             expect(iterator.previous()).toBe(1);
         });
-        
-        it('ReverseIterator', () => {
-            reverse.next();
-            reverse.next();
-            reverse.next();
-            expect(reverse.previous()).toBe(1);
-            expect(reverse.previous()).toBe(2);
-            expect(reverse.previous()).toBe(3);
-        });
     });
 
     describe('reset()', () => {
@@ -113,13 +71,6 @@ describe('Iterator', () => {
             iterator.next();
             iterator.reset();
             expect(iterator.next()).toBe(1);
-        });
-
-        it('ReverseIterator', () => {
-            reverse.next();
-            reverse.next();
-            reverse.reset();
-            expect(reverse.next()).toBe(3);
         });
     });
 
@@ -130,24 +81,12 @@ describe('Iterator', () => {
             iterator.reset();
             expect(iterator.next()).toBe(1);
         });
-
-        it('ReverseIterator', () => {
-            reverse.next();
-            reverse.next();
-            reverse.reset();
-            expect(reverse.next()).toBe(3);
-        });
     });
 
     describe('bringToEnd()', () => {
         it('Iterator', () => {
             iterator.bringToEnd();
             expect(iterator.previous()).toBe(3);
-        });
-
-        it('ReverseIterator', () => {
-            reverse.bringToEnd();
-            expect(reverse.previous()).toBe(1);
         });
     });
 
@@ -159,15 +98,6 @@ describe('Iterator', () => {
             expect(iterator.next()).toBe(2);
             expect(iterator.peekNextIndex()).toBe(2);
             expect(iterator.next()).toBe(3);
-        });
-
-        it('ReverseIterator', () => {
-            expect(reverse.peekNextIndex()).toBe(2);
-            expect(reverse.next()).toBe(3);
-            expect(reverse.peekNextIndex()).toBe(1);
-            expect(reverse.next()).toBe(2);
-            expect(reverse.peekNextIndex()).toBe(0);
-            expect(reverse.next()).toBe(1);
         });
     });
 
@@ -181,27 +111,12 @@ describe('Iterator', () => {
             expect(iterator.peekPreviousIndex()).toBe(0);
             expect(iterator.previous()).toBe(1);
         });
-
-        it('ReverseIterator', () => {
-            reverse.bringToEnd();
-            expect(reverse.peekPreviousIndex()).toBe(0);
-            expect(reverse.previous()).toBe(1);
-            expect(reverse.peekPreviousIndex()).toBe(1);
-            expect(reverse.previous()).toBe(2);
-            expect(reverse.peekPreviousIndex()).toBe(2);
-            expect(reverse.previous()).toBe(3);
-        });
     });
 
     describe('incrementIndex()', () => {
         it('Iterator', () => {
             iterator.incrementIndex();
             expect(iterator.next()).toBe(2);
-        });
-
-        it('ReverseIterator', () => {
-            reverse.incrementIndex();
-            expect(reverse.next()).toBe(2);
         });
     });
 
@@ -210,12 +125,6 @@ describe('Iterator', () => {
             iterator.bringToEnd();
             iterator.decrementIndex();
             expect(iterator.next()).toBe(3);
-        });
-
-        it('ReverseIterator', () => {
-            reverse.bringToEnd();
-            reverse.decrementIndex();
-            expect(reverse.next()).toBe(1);
         });
     });
 });

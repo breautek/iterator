@@ -6,10 +6,6 @@ describe('Public API', () => {
         expect(api.Iterator).toBeTruthy();
     });
 
-    it('ReverseIterator', () => {
-        expect(api.ReverseIterator).toBeTruthy();
-    });
-
     it('DictionaryIterator', () => {
         expect(api.DictionaryIterator).toBeTruthy();
     });
