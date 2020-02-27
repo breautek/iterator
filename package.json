@@ -1,6 +1,6 @@
 {
   "name": "@breautek/iterator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Iterator implementation",
   "main": "lib/Iterator.js",
   "types": "lib/Iterator.d.ts",
