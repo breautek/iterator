@@ -2,10 +2,10 @@
 import {Iterator} from '../src/Iterator';
 
 describe('Iterator', () => {
-    var iterator: Iterator<number>;
+    let iterator: Iterator<number>;
 
     beforeEach(() => {
-        const data: Array<number> = [
+        let data: Array<number> = [
             1,
             2,
             3
@@ -16,7 +16,7 @@ describe('Iterator', () => {
 
     describe('Constructs with custom index position', () => {
         it('Iterator', () => {
-            var iter: Iterator<number> = new Iterator<number>([
+            let iter: Iterator<number> = new Iterator<number>([
                 1,
                 2,
                 3
