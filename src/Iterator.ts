@@ -9,7 +9,7 @@ export class Iterator<T> {
     }
 
     public hasNext(): boolean {
-        return !!this._collection[this._getIndex()];
+        return Object.prototype.hasOwnProperty.call(this._collection, this._getIndex());
     }
 
     public next(): T {
@@ -19,7 +19,7 @@ export class Iterator<T> {
     }
 
     public hasPrevious(): boolean {
-        return !!this._collection[this.peekPreviousIndex()];
+        return Object.prototype.hasOwnProperty.call(this._collection, this.peekPreviousIndex());
     }
 
     public previous(): T {
