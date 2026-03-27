@@ -1,6 +1,6 @@
 {
   "name": "@breautek/iterator",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Iterator implementation",
   "main": "lib/api.js",
   "types": "lib/api.d.ts",
