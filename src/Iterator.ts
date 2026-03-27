@@ -1,30 +1,30 @@
 
 export class Iterator<T> {
-    private _collection: Array<T>;
-    private _cursor: number;
+    private $collection: T[];
+    private $cursor: number;
 
-    constructor(collection: Array<T> = [], index: number = 0) {
-        this._collection = collection;
-        this._cursor = index;
+    constructor(collection: T[] = [], index: number = 0) {
+        this.$collection = collection;
+        this.$cursor = index;
     }
 
     public hasNext(): boolean {
-        return Object.prototype.hasOwnProperty.call(this._collection, this._getIndex());
+        return Object.prototype.hasOwnProperty.call(this.$collection, this.$getIndex());
     }
 
     public next(): T {
-        let data: T = this._collection[this._getIndex()];
+        let data: T = this.$collection[this.$getIndex()];
         this.incrementIndex();
         return data;
     }
 
     public hasPrevious(): boolean {
-        return Object.prototype.hasOwnProperty.call(this._collection, this.peekPreviousIndex());
+        return Object.prototype.hasOwnProperty.call(this.$collection, this.peekPreviousIndex());
     }
 
     public previous(): T {
         this.decrementIndex();
-        let data: T = this._collection[this._cursor];
+        let data: T = this.$collection[this.$cursor];
         return data;
     }
 
@@ -33,33 +33,33 @@ export class Iterator<T> {
     }
 
     public bringToStart(): void {
-        this._cursor = 0;
+        this.$cursor = 0;
     }
 
     public bringToEnd(): void {
-        this._cursor = this._collection.length;
+        this.$cursor = this.$collection.length;
     }
 
     public peekNextIndex(): number {
-        return this._cursor;
+        return this.$cursor;
     }
 
     public peekPreviousIndex(): number {
-        return this._cursor - 1;
+        return this.$cursor - 1;
     }
 
     public incrementIndex(): number {
-        this._cursor += 1;
-        return this._cursor;
+        this.$cursor += 1;
+        return this.$cursor;
     }
 
     public decrementIndex(): number {
-        this._cursor -= 1;
-        return this._cursor;
+        this.$cursor -= 1;
+        return this.$cursor;
     }
 
-    private _getIndex(): number {
-        return this._cursor;
+    private $getIndex(): number {
+        return this.$cursor;
     }
 }
 

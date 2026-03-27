@@ -5,7 +5,7 @@ describe('Iterator', () => {
     let iterator: Iterator<number>;
 
     beforeEach(() => {
-        let data: Array<number> = [
+        let data: number[] = [
             1,
             2,
             3
@@ -101,7 +101,7 @@ describe('Iterator', () => {
         });
     });
 
-    describe('peekNextIndex()', () => {
+    describe('peekPreviousIndex()', () => {
         it('Iterator', () => {
             iterator.bringToEnd();
             expect(iterator.peekPreviousIndex()).toBe(2);

@@ -10,18 +10,18 @@ export interface IDictionaryIteratorResult<T> {
 }
 
 export class DictionaryIterator<T> extends Iterator<any> {
-    private _dictionary: IDictionary;
+    private $dictionary: IDictionary;
 
     public constructor(dictionary: IDictionary) {
         super(Object.keys(dictionary));
-        this._dictionary = dictionary;
+        this.$dictionary = dictionary;
     }
 
     public next(): IDictionaryIteratorResult<T> {
         let key: string = super.next();
         return {
             key : key,
-            value : this._dictionary[key]
+            value : this.$dictionary[key]
         };
     }
 
@@ -29,7 +29,7 @@ export class DictionaryIterator<T> extends Iterator<any> {
         let key: string = super.previous();
         return {
             key : key,
-            value : this._dictionary[key]
+            value : this.$dictionary[key]
         };
     }
 }

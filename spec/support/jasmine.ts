@@ -1,10 +1,9 @@
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 import Jasmine = require('jasmine');
 import {SpecReporter, StacktraceOption} from 'jasmine-spec-reporter';
 
-let jasmine = new Jasmine({
-    suppressLoadErrors: false
-});
+let jasmine = new Jasmine();
 
 let spec: string = process.argv[2] ? process.argv[2] : '**/*[sS]pec.ts';
 
@@ -16,7 +15,7 @@ let config: any = {
 };
 
 jasmine.env.clearReporters();
-jasmine.addReporter(<any>(new SpecReporter({
+jasmine.addReporter(new SpecReporter({
     spec: {
         displayStacktrace: StacktraceOption.RAW,
         displayErrorMessages: true,
@@ -33,7 +32,7 @@ jasmine.addReporter(<any>(new SpecReporter({
         displayPending: true,
         displaySuccessful: false
     }
-})));
+}));
 
 jasmine.loadConfig(config);
-jasmine.execute();
+void jasmine.execute();
