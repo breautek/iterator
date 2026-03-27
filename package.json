@@ -4,6 +4,10 @@
   "description": "Iterator implementation",
   "main": "lib/api.js",
   "types": "lib/api.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "nyc": {
     "check-coverage": true,
     "per-file": true,
